@@ -254,6 +254,8 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--bg-secondary);
+            min-height: 520px;
+            contain: layout;
         }
 
         .timesheet-grid {
@@ -774,13 +776,13 @@
             <div class="toolbar-group rate-input-group">
                 <label for="overtimeThreshold">Overtime after:</label>
                 <input type="number" class="rate-input" id="overtimeThreshold" value="8" min="0" step="0.5" onchange="updateCalculations()" aria-label="Overtime threshold in hours per day">
-                <span style="color: var(--text-muted); font-size: 0.8rem;" aria-label="hours per day">hrs/day</span>
+                <span style="color: var(--text-secondary); font-size: 0.8rem;" aria-label="hours per day">hrs/day</span>
             </div>
 
             <div class="toolbar-group rate-input-group">
                 <label for="overtimeMultiplier">OT rate:</label>
                 <input type="number" class="rate-input" id="overtimeMultiplier" value="1.5" min="1" step="0.1" style="width: 60px;" onchange="updateCalculations()" aria-label="Overtime rate multiplier">
-                <span style="color: var(--text-muted); font-size: 0.8rem;" aria-label="multiplier">×</span>
+                <span style="color: var(--text-secondary); font-size: 0.8rem;" aria-label="multiplier">×</span>
             </div>
         </div>
 
@@ -844,6 +846,7 @@
         <h1>Free Online Timesheet Calculator</h1>
         <p>TimeWorked is a simple, powerful timesheet calculator that runs entirely in your browser. Track your work hours, calculate earnings with overtime support, and export your data — all without creating an account. Your data is stored locally on your device, giving you complete privacy and control.</p>
 
+        <h2>Key Features</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
