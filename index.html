@@ -421,7 +421,8 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
-            min-height: 90px;
+            min-height: 106px;
+            contain: layout;
         }
 
         .summary-card {
@@ -430,6 +431,8 @@
             border-radius: 8px;
             padding: 1rem 1.25rem;
             min-height: 90px;
+            height: 90px;
+            contain: layout style;
         }
 
         .summary-card-label {
@@ -438,6 +441,8 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.25rem;
+            height: 1rem;
+            line-height: 1rem;
         }
 
         .summary-card-value {
@@ -447,8 +452,11 @@
             color: var(--text-primary);
             line-height: 1.4;
             min-height: 2.1rem;
+            height: 2.1rem;
             display: block;
             font-variant-numeric: tabular-nums;
+            overflow: hidden;
+            width: 100%;
         }
 
         .summary-card-value.accent {
@@ -606,6 +614,11 @@
 
             .summary-cards {
                 grid-template-columns: repeat(2, 1fr);
+                min-height: 196px;
+            }
+
+            .summary-card {
+                height: 90px;
             }
 
             .content-section {
