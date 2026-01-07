@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy policy for TimeWorked.net - Your data stays on your device">
+    <meta name="robots" content="index, follow">
+
+    <title>Privacy Policy - TimeWorked</title>
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a1a2e' rx='12' width='100' height='100'/><text y='.9em' font-size='80' x='50%' text-anchor='middle'>⏱</text></svg>">
+
+    <style>
+        :root {
+            --bg-primary: #0d0d12;
+            --bg-secondary: #14141c;
+            --bg-tertiary: #1a1a26;
+            --bg-hover: #22222e;
+            --border: #2a2a3a;
+            --border-focus: #4a6cf7;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --text-muted: #5a5a6e;
+            --accent: #4a6cf7;
+            --accent-hover: #5d7bf9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 900px;
+            margin: 2rem auto 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .content-section h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-section .date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .content-section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-section a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .content-section a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            margin: 0 0.75rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .content-section {
+                margin: 1.5rem auto 2rem;
+                padding: 0 1rem;
+            }
+
+            .content-section h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ5JGWETNK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZZ5JGWETNK');
+</script></head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">⏱</div>
+                <span>TimeWorked</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="content-section">
+        <h1>Privacy Policy</h1>
+        <p class="date">Last updated: January 7, 2026</p>
+
+        <div class="highlight-box">
+            <h3>Privacy First</h3>
+            <p style="margin: 0;">TimeWorked.net is designed with privacy as a core principle. Your timesheet data never leaves your device. We don't collect, store, or transmit your personal information to any servers.</p>
+        </div>
+
+        <h2>What We Don't Collect</h2>
+        <p>Unlike most web applications, TimeWorked.net does not collect or store:</p>
+        <ul>
+            <li>Personal information (name, email, phone number, address)</li>
+            <li>Account credentials or login information</li>
+            <li>Timesheet data or work hours</li>
+            <li>Financial information or earnings calculations</li>
+            <li>IP addresses or device identifiers</li>
+            <li>Location data or geographic information</li>
+            <li>Cookies for tracking or analytics purposes</li>
+        </ul>
+
+        <h2>How Your Data Is Stored</h2>
+        <p>All timesheet data you enter into TimeWorked.net is stored exclusively in your web browser's local storage. This means:</p>
+        <ul>
+            <li><strong>Local only:</strong> Data remains on your device and is never transmitted to our servers or any third parties</li>
+            <li><strong>Browser specific:</strong> Data is tied to the specific browser and device you're using</li>
+            <li><strong>Private:</strong> We have no access to your data and cannot view, retrieve, or recover it</li>
+            <li><strong>Persistent:</strong> Data persists between browser sessions until you clear it or clear your browser data</li>
+        </ul>
+
+        <h2>Web Analytics</h2>
+        <p>We may use privacy-respecting web analytics tools to understand aggregate usage patterns such as:</p>
+        <ul>
+            <li>Number of page views</li>
+            <li>General geographic regions (country level only)</li>
+            <li>Browser types and device categories</li>
+            <li>Referral sources</li>
+        </ul>
+        <p>These analytics are:</p>
+        <ul>
+            <li>Anonymized and aggregated</li>
+            <li>Used solely to improve the service</li>
+            <li>Not linked to any individual user</li>
+            <li>Not sold or shared with third parties for advertising</li>
+        </ul>
+
+        <h2>Cookies</h2>
+        <p>TimeWorked.net does not use cookies for tracking, advertising, or analytics. The only browser storage used is local storage for saving your timesheet data, which you control entirely through your browser settings.</p>
+
+        <h2>Third-Party Services</h2>
+        <p>TimeWorked.net may use the following third-party services:</p>
+        <ul>
+            <li><strong>Google Fonts:</strong> We load fonts from Google Fonts CDN. Google may collect technical information about font requests. See <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener noreferrer">Google Fonts Privacy Policy</a></li>
+            <li><strong>Content Delivery Networks (CDNs):</strong> We may serve static assets through CDNs for performance. These services may log technical request data</li>
+        </ul>
+        <p>We do not use third-party advertising, social media tracking, or analytics that collect personal information.</p>
+
+        <h2>Data Security</h2>
+        <p>Since your timesheet data is stored locally on your device and never transmitted to our servers:</p>
+        <ul>
+            <li>You are responsible for securing your device and browser</li>
+            <li>We cannot recover lost data if your browser data is cleared</li>
+            <li>We recommend using the Export feature regularly to back up your data</li>
+            <li>We recommend using device encryption and secure passwords</li>
+        </ul>
+
+        <h2>Data Backup and Export</h2>
+        <p>You can export your timesheet data at any time using the Export button. Exported data is downloaded directly to your device and is not transmitted through our servers. You are responsible for securely storing exported data.</p>
+
+        <h2>Data Deletion</h2>
+        <p>You have complete control over your data. To delete your timesheet data:</p>
+        <ul>
+            <li>Use the "Clear" button in the application to remove all timesheet entries</li>
+            <li>Clear your browser's local storage through browser settings</li>
+            <li>Clear your browser data (cache, cookies, and site data)</li>
+        </ul>
+        <p>Once deleted, data cannot be recovered as we do not maintain server-side backups.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>TimeWorked.net does not knowingly collect or store information from anyone. The service is available for use by individuals of all ages, but we do not collect personal information from any users, including children under 13.</p>
+
+        <h2>International Users</h2>
+        <p>TimeWorked.net is accessible worldwide. Since all data is stored locally on your device, data protection and privacy regulations in your jurisdiction apply to how you manage your own data.</p>
+
+        <h2>Do Not Track</h2>
+        <p>Because we do not track users or collect personal information, Do Not Track (DNT) browser settings do not affect the functionality of TimeWorked.net. We respect privacy by default.</p>
+
+        <h2>Changes to Privacy Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last updated" date. Continued use of the service after changes constitutes acceptance of the updated policy.</p>
+
+        <h2>Your Rights</h2>
+        <p>Since we do not collect or store your personal data, traditional data subject rights (such as access, rectification, or deletion requests) are not applicable. You have full control over your data through your browser.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have questions about this Privacy Policy or our privacy practices, please contact us through our <a href="/contact.html">Contact page</a>.</p>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/legal.html">Legal</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p>© 2025 TimeWorked.net — Free online timesheet calculator</p>
+    </footer>
+</body>
+</html>

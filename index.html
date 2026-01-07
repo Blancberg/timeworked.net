@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online timesheet calculator. Track work hours, calculate pay, export data. No signup required. Your data stays on your device.">
+    <meta name="keywords" content="timesheet, time tracker, work hours calculator, hourly pay calculator, free timesheet, online timesheet">
+    <meta name="author" content="TimeWorked">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TimeWorked - Free Online Timesheet Calculator">
+    <meta property="og:description" content="Track work hours, calculate pay, export data. No signup required. Your data stays private on your device.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timeworked.net">
+    <meta property="og:image" content="https://timeworked.net/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TimeWorked - Free Online Timesheet Calculator">
+    <meta name="twitter:description" content="Track work hours, calculate pay, export data. No signup. Your data stays on your device.">
+    
+    <title>TimeWorked - Free Online Timesheet & Work Hours Calculator</title>
+    
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a1a2e' rx='12' width='100' height='100'/><text y='.9em' font-size='80' x='50%' text-anchor='middle'>⏱</text></svg>">
+    
+    <style>
+        :root {
+            --bg-primary: #0d0d12;
+            --bg-secondary: #14141c;
+            --bg-tertiary: #1a1a26;
+            --bg-hover: #22222e;
+            --bg-cell: #18181f;
+            --border: #2a2a3a;
+            --border-focus: #4a6cf7;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --text-muted: #5a5a6e;
+            --accent: #4a6cf7;
+            --accent-hover: #5d7bf9;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --grid-header: #1e1e2a;
+            --cell-even: #15151d;
+            --cell-odd: #18181f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--border-focus);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-danger {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Main App */
+        .app {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            align-items: center;
+        }
+
+        .toolbar-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .toolbar-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 0.5rem;
+        }
+
+        .week-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .week-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .rate-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rate-input-group label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .rate-input {
+            width: 90px;
+            padding: 0.4rem 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            background: var(--bg-cell);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+        }
+
+        .rate-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .currency-select {
+            padding: 0.4rem 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            background: var(--bg-cell);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Spreadsheet Grid */
+        .grid-container {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+
+        .timesheet-grid {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            min-width: 900px;
+        }
+
+        .timesheet-grid th {
+            background: var(--grid-header);
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .timesheet-grid th:first-child {
+            text-align: left;
+            padding-left: 1rem;
+            min-width: 140px;
+        }
+
+        .timesheet-grid td {
+            padding: 0;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .timesheet-grid td:last-child {
+            border-right: none;
+        }
+
+        .timesheet-grid tr:nth-child(even) td {
+            background: var(--cell-even);
+        }
+
+        .timesheet-grid tr:nth-child(odd) td {
+            background: var(--cell-odd);
+        }
+
+        .timesheet-grid tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        .timesheet-grid tr.total-row td {
+            background: var(--grid-header);
+            font-weight: 600;
+            border-top: 2px solid var(--border);
+        }
+
+        .day-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        .day-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 36px;
+        }
+
+        .day-date {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .weekend .day-name {
+            color: var(--warning);
+        }
+
+        .time-input {
+            width: 100%;
+            padding: 0.6rem 0.25rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .time-input:focus {
+            outline: none;
+            background: rgba(74, 108, 247, 0.1);
+        }
+
+        .time-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .hours-cell {
+            font-weight: 500;
+            padding: 0.6rem 0.5rem;
+            color: var(--success);
+        }
+
+        .hours-cell.zero {
+            color: var(--text-muted);
+        }
+
+        .hours-cell.overtime {
+            color: var(--warning);
+        }
+
+        .earnings-cell {
+            font-weight: 500;
+            padding: 0.6rem 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 0.6rem 0.5rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.8rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .notes-input:focus {
+            outline: none;
+            background: rgba(74, 108, 247, 0.1);
+        }
+
+        .total-label {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .total-hours {
+            font-size: 1rem;
+            color: var(--accent);
+            padding: 0.75rem 0.5rem;
+        }
+
+        .total-earnings {
+            font-size: 1rem;
+            color: var(--success);
+            padding: 0.75rem 0.5rem;
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+
+        .summary-card-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-card-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .summary-card-value.accent {
+            color: var(--accent);
+        }
+
+        .summary-card-value.success {
+            color: var(--success);
+        }
+
+        /* Status Indicator */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        .status-dot.saving {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .content-section h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .content-section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .header-actions .btn span {
+                display: none;
+            }
+
+            .app {
+                padding: 0.75rem;
+            }
+
+            .toolbar {
+                padding: 0.75rem;
+            }
+
+            .toolbar-group {
+                flex-wrap: wrap;
+            }
+
+            .toolbar-divider {
+                display: none;
+            }
+
+            .week-label {
+                min-width: auto;
+                font-size: 0.75rem;
+            }
+
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-section {
+                margin: 2rem auto;
+            }
+
+            .content-section h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header, .toolbar, .status-bar, .content-section, .footer {
+                display: none;
+            }
+
+            .app {
+                padding: 0;
+            }
+
+            .grid-container {
+                border: 1px solid #000;
+            }
+
+            .timesheet-grid th, .timesheet-grid td {
+                border: 1px solid #000;
+                color: #000;
+                background: #fff !important;
+            }
+
+            .time-input, .notes-input {
+                color: #000;
+            }
+        }
+
+        /* Keyboard shortcut hint */
+        .kbd {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text-muted);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ5JGWETNK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZZ5JGWETNK');
+</script></head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">⏱</div>
+                <span>TimeWorked</span>
+            </a>
+            <div class="header-actions">
+                <button class="btn" onclick="exportCSV()" title="Export to CSV">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Export</span>
+                </button>
+                <button class="btn" onclick="window.print()" title="Print timesheet">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    <span>Print</span>
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()" title="Clear all data">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    <span>Clear</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app">
+        <div class="toolbar">
+            <div class="toolbar-group week-nav">
+                <button class="btn" onclick="changeWeek(-1)" title="Previous week">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <span class="week-label" id="weekLabel">Week of Jan 1, 2025</span>
+                <button class="btn" onclick="changeWeek(1)" title="Next week">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+                <button class="btn" onclick="goToToday()" title="Go to current week">Today</button>
+            </div>
+            
+            <div class="toolbar-divider"></div>
+            
+            <div class="toolbar-group rate-input-group">
+                <label for="hourlyRate">Hourly Rate:</label>
+                <select class="currency-select" id="currency" onchange="updateCurrency()">
+                    <option value="$">$ USD</option>
+                    <option value="€">€ EUR</option>
+                    <option value="£">£ GBP</option>
+                    <option value="¥">¥ JPY</option>
+                    <option value="₹">₹ INR</option>
+                    <option value="A$">A$ AUD</option>
+                    <option value="C$">C$ CAD</option>
+                    <option value="CHF">CHF</option>
+                </select>
+                <input type="number" class="rate-input" id="hourlyRate" value="25" min="0" step="0.01" onchange="updateCalculations()">
+            </div>
+            
+            <div class="toolbar-divider"></div>
+            
+            <div class="toolbar-group rate-input-group">
+                <label for="overtimeThreshold">Overtime after:</label>
+                <input type="number" class="rate-input" id="overtimeThreshold" value="8" min="0" step="0.5" onchange="updateCalculations()">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">hrs/day</span>
+            </div>
+            
+            <div class="toolbar-group rate-input-group">
+                <label for="overtimeMultiplier">OT rate:</label>
+                <input type="number" class="rate-input" id="overtimeMultiplier" value="1.5" min="1" step="0.1" style="width: 60px;" onchange="updateCalculations()">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">×</span>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <table class="timesheet-grid" id="timesheetGrid">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start 1</th>
+                        <th>End 1</th>
+                        <th>Start 2</th>
+                        <th>End 2</th>
+                        <th>Start 3</th>
+                        <th>End 3</th>
+                        <th>Hours</th>
+                        <th>Earnings</th>
+                        <th style="min-width: 150px;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="timesheetBody">
+                    <!-- Generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-card-label">Total Hours</div>
+                <div class="summary-card-value accent" id="summaryHours">0.00</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-label">Regular Hours</div>
+                <div class="summary-card-value" id="summaryRegular">0.00</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-label">Overtime Hours</div>
+                <div class="summary-card-value" style="color: var(--warning);" id="summaryOvertime">0.00</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-label">Total Earnings</div>
+                <div class="summary-card-value success" id="summaryEarnings">$0.00</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-label">Days Worked</div>
+                <div class="summary-card-value" id="summaryDays">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-label">Avg Hours/Day</div>
+                <div class="summary-card-value" id="summaryAvg">0.00</div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">All changes saved locally</span>
+            <span style="margin-left: auto;"><kbd>Tab</kbd> to navigate • <kbd>Enter</kbd> to move down</span>
+        </div>
+    </main>
+
+    <section class="content-section">
+        <h1>Free Online Timesheet Calculator</h1>
+        <p>TimeWorked is a simple, powerful timesheet calculator that runs entirely in your browser. Track your work hours, calculate earnings with overtime support, and export your data — all without creating an account. Your data is stored locally on your device, giving you complete privacy and control.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Private & Local</h3>
+                <p>Your timesheet data never leaves your device. No servers, no accounts, no tracking.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Calculations</h3>
+                <p>Hours and earnings calculate automatically as you type. See totals update in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Overtime Support</h3>
+                <p>Configure daily overtime thresholds and multipliers. Supports any rate and currency.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Export Anywhere</h3>
+                <p>Download your timesheet as CSV for use in any spreadsheet application or payroll system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🖨️</div>
+                <h3>Print Ready</h3>
+                <p>Clean print layout for submitting physical timesheets or keeping paper records.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Works Everywhere</h3>
+                <p>Fully responsive design works on desktop, tablet, and mobile. No app install needed.</p>
+            </div>
+        </div>
+
+        <h2>How to Use</h2>
+        <p>Using TimeWorked is straightforward:</p>
+        <ul>
+            <li><strong>Enter times</strong> in 24-hour format (e.g., 09:00) or 12-hour format (e.g., 9:00 AM). The calculator accepts most common time formats.</li>
+            <li><strong>Multiple shifts per day</strong> — each day has up to three time slots for split shifts or breaks.</li>
+            <li><strong>Set your hourly rate</strong> in the toolbar. Choose your currency and enter your rate.</li>
+            <li><strong>Configure overtime</strong> by setting hours after which overtime kicks in and the multiplier (e.g., 1.5x after 8 hours).</li>
+            <li><strong>Navigate weeks</strong> using the arrow buttons or click "Today" to jump to the current week.</li>
+            <li><strong>Add notes</strong> for each day to track projects, tasks, or leave status.</li>
+        </ul>
+
+        <h2>Keyboard Shortcuts</h2>
+        <ul>
+            <li><kbd>Tab</kbd> — Move to next cell</li>
+            <li><kbd>Shift + Tab</kbd> — Move to previous cell</li>
+            <li><kbd>Enter</kbd> — Move down to same column in next row</li>
+            <li><kbd>Arrow keys</kbd> — Navigate between cells (when not editing)</li>
+        </ul>
+
+        <h2>Data Privacy</h2>
+        <p>TimeWorked uses your browser's local storage to save your timesheet data. This means:</p>
+        <ul>
+            <li>Your data stays on your device and is never sent to any server</li>
+            <li>No account creation or login required</li>
+            <li>Data persists between browser sessions on the same device</li>
+            <li>Clearing your browser data will remove your timesheet history</li>
+            <li>For permanent records, use the Export feature to download your data</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <h3>Is TimeWorked really free?</h3>
+        <p>Yes, TimeWorked is completely free with no hidden costs, premium tiers, or advertisements.</p>
+
+        <h3>Can I access my timesheet from another device?</h3>
+        <p>Since data is stored locally on your device, you'll need to export your data and import it on the other device, or use browser sync features if available.</p>
+
+        <h3>What time formats are supported?</h3>
+        <p>TimeWorked accepts 24-hour time (14:30), 12-hour time (2:30 PM), and shorthand formats (230p, 1430). Times are automatically normalized for calculations.</p>
+
+        <h3>How is overtime calculated?</h3>
+        <p>Overtime is calculated per day based on your threshold setting. Hours exceeding the threshold are multiplied by your overtime rate. Weekly overtime thresholds are not currently supported but may be added in a future update.</p>
+    </section>
+
+    <footer class="footer">
+        <div style="margin-bottom: 0.75rem;">
+            <a href="/">Home</a>
+            <span style="margin: 0 0.75rem;">·</span>
+            <a href="/legal.html">Legal</a>
+            <span style="margin: 0 0.75rem;">·</span>
+            <a href="/privacy.html">Privacy</a>
+            <span style="margin: 0 0.75rem;">·</span>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p>© 2025 TimeWorked.net — Free online timesheet calculator</p>
+    </footer>
+
+    <script>
+        // State
+        let currentWeekStart = getWeekStart(new Date());
+        let timesheetData = {};
+        let settings = {
+            hourlyRate: 25,
+            currency: '$',
+            overtimeThreshold: 8,
+            overtimeMultiplier: 1.5
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            renderWeek();
+            updateWeekLabel();
+        });
+
+        // Date utilities
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Monday start
+            d.setDate(diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatDateShort(date) {
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function getDateKey(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function getDayName(date) {
+            return date.toLocaleDateString('en-US', { weekday: 'short' });
+        }
+
+        function isWeekend(date) {
+            const day = date.getDay();
+            return day === 0 || day === 6;
+        }
+
+        // Week navigation
+        function changeWeek(delta) {
+            currentWeekStart = new Date(currentWeekStart);
+            currentWeekStart.setDate(currentWeekStart.getDate() + (delta * 7));
+            renderWeek();
+            updateWeekLabel();
+        }
+
+        function goToToday() {
+            currentWeekStart = getWeekStart(new Date());
+            renderWeek();
+            updateWeekLabel();
+        }
+
+        function updateWeekLabel() {
+            const weekEnd = new Date(currentWeekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            document.getElementById('weekLabel').textContent = 
+                `${formatDateShort(currentWeekStart)} – ${formatDateShort(weekEnd)}, ${weekEnd.getFullYear()}`;
+        }
+
+        // Render timesheet
+        function renderWeek() {
+            const tbody = document.getElementById('timesheetBody');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                const dateKey = getDateKey(date);
+                const dayData = timesheetData[dateKey] || {};
+
+                const row = document.createElement('tr');
+                row.className = isWeekend(date) ? 'weekend' : '';
+                
+                row.innerHTML = `
+                    <td>
+                        <div class="day-cell ${isWeekend(date) ? 'weekend' : ''}">
+                            <span class="day-name">${getDayName(date)}</span>
+                            <span class="day-date">${formatDateShort(date)}</span>
+                        </div>
+                    </td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="start1" value="${dayData.start1 || ''}" placeholder="--:--"></td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="end1" value="${dayData.end1 || ''}" placeholder="--:--"></td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="start2" value="${dayData.start2 || ''}" placeholder="--:--"></td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="end2" value="${dayData.end2 || ''}" placeholder="--:--"></td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="start3" value="${dayData.start3 || ''}" placeholder="--:--"></td>
+                    <td><input type="text" class="time-input" data-date="${dateKey}" data-field="end3" value="${dayData.end3 || ''}" placeholder="--:--"></td>
+                    <td class="hours-cell" data-date="${dateKey}">0.00</td>
+                    <td class="earnings-cell" data-date="${dateKey}">${settings.currency}0.00</td>
+                    <td><input type="text" class="notes-input" data-date="${dateKey}" data-field="notes" value="${dayData.notes || ''}" placeholder="Add notes..."></td>
+                `;
+
+                tbody.appendChild(row);
+            }
+
+            // Add total row
+            const totalRow = document.createElement('tr');
+            totalRow.className = 'total-row';
+            totalRow.innerHTML = `
+                <td class="total-label">Week Total</td>
+                <td colspan="6"></td>
+                <td class="total-hours" id="totalHours">0.00</td>
+                <td class="total-earnings" id="totalEarnings">${settings.currency}0.00</td>
+                <td></td>
+            `;
+            tbody.appendChild(totalRow);
+
+            // Add event listeners
+            document.querySelectorAll('.time-input, .notes-input').forEach(input => {
+                input.addEventListener('input', handleInput);
+                input.addEventListener('blur', handleBlur);
+                input.addEventListener('keydown', handleKeydown);
+            });
+
+            updateCalculations();
+        }
+
+        // Input handling
+        function handleInput(e) {
+            showSaving();
+            const { date, field } = e.target.dataset;
+            if (!timesheetData[date]) timesheetData[date] = {};
+            timesheetData[date][field] = e.target.value;
+            
+            if (field !== 'notes') {
+                updateCalculations();
+            }
+            
+            saveToStorage();
+        }
+
+        function handleBlur(e) {
+            const { field } = e.target.dataset;
+            if (field !== 'notes') {
+                e.target.value = normalizeTime(e.target.value);
+                handleInput(e);
+            }
+        }
+
+        function handleKeydown(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const inputs = Array.from(document.querySelectorAll('.time-input, .notes-input'));
+                const currentIndex = inputs.indexOf(e.target);
+                const columns = 7; // Number of input columns per row
+                const nextIndex = currentIndex + columns;
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                    inputs[nextIndex].select();
+                }
+            }
+        }
+
+        // Time parsing and calculations
+        function normalizeTime(input) {
+            if (!input || !input.trim()) return '';
+            
+            let str = input.trim().toLowerCase();
+            
+            // Handle various formats
+            // 9 -> 09:00
+            // 9:30 -> 09:30
+            // 930 -> 09:30
+            // 9a, 9am, 9 am -> 09:00
+            // 9:30p, 9:30pm, 9:30 pm -> 21:30
+            // 14:30 -> 14:30
+            // 1430 -> 14:30
+            
+            const isPM = /p/.test(str);
+            const isAM = /a/.test(str);
+            str = str.replace(/[ap]m?/g, '').trim();
+            
+            let hours, minutes;
+            
+            if (str.includes(':')) {
+                const parts = str.split(':');
+                hours = parseInt(parts[0], 10);
+                minutes = parseInt(parts[1], 10) || 0;
+            } else if (str.length <= 2) {
+                hours = parseInt(str, 10);
+                minutes = 0;
+            } else if (str.length === 3) {
+                hours = parseInt(str.substring(0, 1), 10);
+                minutes = parseInt(str.substring(1), 10);
+            } else if (str.length === 4) {
+                hours = parseInt(str.substring(0, 2), 10);
+                minutes = parseInt(str.substring(2), 10);
+            } else {
+                return input; // Can't parse, return as-is
+            }
+            
+            if (isNaN(hours) || isNaN(minutes)) return input;
+            
+            // Handle 12-hour format
+            if (isPM && hours < 12) hours += 12;
+            if (isAM && hours === 12) hours = 0;
+            
+            // Validate
+            if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return input;
+            
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        }
+
+        function parseTime(timeStr) {
+            if (!timeStr || !timeStr.includes(':')) return null;
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            if (isNaN(hours) || isNaN(minutes)) return null;
+            return hours * 60 + minutes;
+        }
+
+        function calculateDayHours(dayData) {
+            let totalMinutes = 0;
+            
+            for (let i = 1; i <= 3; i++) {
+                const start = parseTime(dayData[`start${i}`]);
+                const end = parseTime(dayData[`end${i}`]);
+                
+                if (start !== null && end !== null) {
+                    let diff = end - start;
+                    if (diff < 0) diff += 24 * 60; // Handle overnight shifts
+                    totalMinutes += diff;
+                }
+            }
+            
+            return totalMinutes / 60;
+        }
+
+        function calculateEarnings(hours) {
+            const threshold = settings.overtimeThreshold;
+            const multiplier = settings.overtimeMultiplier;
+            const rate = settings.hourlyRate;
+            
+            if (hours <= threshold) {
+                return { regular: hours, overtime: 0, earnings: hours * rate };
+            }
+            
+            const regular = threshold;
+            const overtime = hours - threshold;
+            const earnings = (regular * rate) + (overtime * rate * multiplier);
+            
+            return { regular, overtime, earnings };
+        }
+
+        function updateCalculations() {
+            let weekTotalHours = 0;
+            let weekTotalEarnings = 0;
+            let weekRegularHours = 0;
+            let weekOvertimeHours = 0;
+            let daysWorked = 0;
+
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                const dateKey = getDateKey(date);
+                const dayData = timesheetData[dateKey] || {};
+                
+                const hours = calculateDayHours(dayData);
+                const { regular, overtime, earnings } = calculateEarnings(hours);
+                
+                // Update day cells
+                const hoursCell = document.querySelector(`.hours-cell[data-date="${dateKey}"]`);
+                const earningsCell = document.querySelector(`.earnings-cell[data-date="${dateKey}"]`);
+                
+                if (hoursCell) {
+                    hoursCell.textContent = hours.toFixed(2);
+                    hoursCell.classList.toggle('zero', hours === 0);
+                    hoursCell.classList.toggle('overtime', overtime > 0);
+                }
+                
+                if (earningsCell) {
+                    earningsCell.textContent = `${settings.currency}${earnings.toFixed(2)}`;
+                }
+                
+                weekTotalHours += hours;
+                weekTotalEarnings += earnings;
+                weekRegularHours += regular;
+                weekOvertimeHours += overtime;
+                if (hours > 0) daysWorked++;
+            }
+
+            // Update totals
+            document.getElementById('totalHours').textContent = weekTotalHours.toFixed(2);
+            document.getElementById('totalEarnings').textContent = `${settings.currency}${weekTotalEarnings.toFixed(2)}`;
+
+            // Update summary cards
+            document.getElementById('summaryHours').textContent = weekTotalHours.toFixed(2);
+            document.getElementById('summaryRegular').textContent = weekRegularHours.toFixed(2);
+            document.getElementById('summaryOvertime').textContent = weekOvertimeHours.toFixed(2);
+            document.getElementById('summaryEarnings').textContent = `${settings.currency}${weekTotalEarnings.toFixed(2)}`;
+            document.getElementById('summaryDays').textContent = daysWorked;
+            document.getElementById('summaryAvg').textContent = daysWorked > 0 ? (weekTotalHours / daysWorked).toFixed(2) : '0.00';
+        }
+
+        // Settings
+        function updateCurrency() {
+            settings.currency = document.getElementById('currency').value;
+            saveToStorage();
+            renderWeek();
+        }
+
+        document.getElementById('hourlyRate').addEventListener('change', (e) => {
+            settings.hourlyRate = parseFloat(e.target.value) || 0;
+            saveToStorage();
+            updateCalculations();
+        });
+
+        document.getElementById('overtimeThreshold').addEventListener('change', (e) => {
+            settings.overtimeThreshold = parseFloat(e.target.value) || 8;
+            saveToStorage();
+            updateCalculations();
+        });
+
+        document.getElementById('overtimeMultiplier').addEventListener('change', (e) => {
+            settings.overtimeMultiplier = parseFloat(e.target.value) || 1.5;
+            saveToStorage();
+            updateCalculations();
+        });
+
+        // Storage
+        function saveToStorage() {
+            try {
+                localStorage.setItem('timeworked_data', JSON.stringify(timesheetData));
+                localStorage.setItem('timeworked_settings', JSON.stringify(settings));
+                setTimeout(showSaved, 500);
+            } catch (e) {
+                console.error('Failed to save to localStorage:', e);
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                const data = localStorage.getItem('timeworked_data');
+                const savedSettings = localStorage.getItem('timeworked_settings');
+                
+                if (data) timesheetData = JSON.parse(data);
+                if (savedSettings) {
+                    settings = { ...settings, ...JSON.parse(savedSettings) };
+                    document.getElementById('hourlyRate').value = settings.hourlyRate;
+                    document.getElementById('currency').value = settings.currency;
+                    document.getElementById('overtimeThreshold').value = settings.overtimeThreshold;
+                    document.getElementById('overtimeMultiplier').value = settings.overtimeMultiplier;
+                }
+            } catch (e) {
+                console.error('Failed to load from localStorage:', e);
+            }
+        }
+
+        function showSaving() {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            dot.classList.add('saving');
+            text.textContent = 'Saving...';
+        }
+
+        function showSaved() {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            dot.classList.remove('saving');
+            text.textContent = 'All changes saved locally';
+        }
+
+        // Export
+        function exportCSV() {
+            let csv = 'Date,Day,Start 1,End 1,Start 2,End 2,Start 3,End 3,Hours,Earnings,Notes\n';
+            
+            // Export all stored data, sorted by date
+            const sortedDates = Object.keys(timesheetData).sort();
+            
+            for (const dateKey of sortedDates) {
+                const dayData = timesheetData[dateKey];
+                const date = new Date(dateKey + 'T00:00:00');
+                const hours = calculateDayHours(dayData);
+                const { earnings } = calculateEarnings(hours);
+                
+                csv += `"${dateKey}","${getDayName(date)}","${dayData.start1 || ''}","${dayData.end1 || ''}","${dayData.start2 || ''}","${dayData.end2 || ''}","${dayData.start3 || ''}","${dayData.end3 || ''}","${hours.toFixed(2)}","${settings.currency}${earnings.toFixed(2)}","${(dayData.notes || '').replace(/"/g, '""')}"\n`;
+            }
+            
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `timesheet_${formatDate(new Date()).replace(/[, ]/g, '_')}.csv`);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Clear data
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all timesheet data? This cannot be undone.')) {
+                timesheetData = {};
+                localStorage.removeItem('timeworked_data');
+                renderWeek();
+            }
+        }
+    </script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TimeWorked",
+        "url": "https://timeworked.net",
+        "description": "Free online timesheet calculator. Track work hours, calculate pay with overtime support, export to CSV. No signup required.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Time tracking",
+            "Overtime calculation", 
+            "CSV export",
+            "Local storage",
+            "Multiple currencies",
+            "Print support"
+        ]
+    }
+    </script>
+</body>
+</html>

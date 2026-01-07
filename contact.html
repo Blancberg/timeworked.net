@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact TimeWorked.net - Get in touch with us">
+    <meta name="robots" content="index, follow">
+
+    <title>Contact - TimeWorked</title>
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a1a2e' rx='12' width='100' height='100'/><text y='.9em' font-size='80' x='50%' text-anchor='middle'>⏱</text></svg>">
+
+    <style>
+        :root {
+            --bg-primary: #0d0d12;
+            --bg-secondary: #14141c;
+            --bg-tertiary: #1a1a26;
+            --bg-hover: #22222e;
+            --border: #2a2a3a;
+            --border-focus: #4a6cf7;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --text-muted: #5a5a6e;
+            --accent: #4a6cf7;
+            --accent-hover: #5d7bf9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 900px;
+            margin: 2rem auto 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .content-section h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .content-section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-section a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .content-section a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .contact-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .contact-box .email {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin: 1rem 0;
+            word-break: break-all;
+        }
+
+        .contact-box .email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.15s ease;
+        }
+
+        .contact-box .email-link:hover {
+            background: var(--accent-hover);
+            text-decoration: none;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            margin: 0 0.75rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .content-section {
+                margin: 1.5rem auto 2rem;
+                padding: 0 1rem;
+            }
+
+            .content-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .contact-box {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact-box .email {
+                font-size: 1rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ5JGWETNK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZZ5JGWETNK');
+</script></head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">⏱</div>
+                <span>TimeWorked</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="content-section">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Whether you have questions, feedback, bug reports, or feature requests, feel free to reach out.</p>
+
+        <div class="contact-box">
+            <h2>Email Us</h2>
+            <p>For all inquiries, please contact us at:</p>
+            <div class="email">hello@timeworked.net</div>
+            <a href="mailto:hello@timeworked.net" class="email-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Send Email
+            </a>
+        </div>
+
+        <h2>What to Include</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Bug Reports</h3>
+                <p>Describe the issue, steps to reproduce it, and what browser/device you're using.</p>
+            </div>
+            <div class="info-card">
+                <h3>Feature Requests</h3>
+                <p>Tell us what feature you'd like to see and how it would help you.</p>
+            </div>
+            <div class="info-card">
+                <h3>General Feedback</h3>
+                <p>Share your thoughts, suggestions, or experiences using TimeWorked.</p>
+            </div>
+            <div class="info-card">
+                <h3>Technical Issues</h3>
+                <p>Include browser version, device type, and any error messages you see.</p>
+            </div>
+        </div>
+
+        <h2>Response Time</h2>
+        <p>We aim to respond to all inquiries within 48 hours. Please note that TimeWorked is a free service maintained by a small team, so response times may vary.</p>
+
+        <h2>Privacy</h2>
+        <p>When you email us, we only use your email address to respond to your inquiry. We do not add you to mailing lists or share your information with third parties. For more details, see our <a href="/privacy.html">Privacy Policy</a>.</p>
+
+        <h2>Before Contacting</h2>
+        <p>You might find answers to common questions on our homepage. The main page includes:</p>
+        <ul>
+            <li>How to use TimeWorked and its features</li>
+            <li>Keyboard shortcuts and navigation tips</li>
+            <li>Information about data privacy and local storage</li>
+            <li>Frequently asked questions about calculations and functionality</li>
+        </ul>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/legal.html">Legal</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p>© 2025 TimeWorked.net — Free online timesheet calculator</p>
+    </footer>
+</body>
+</html>
