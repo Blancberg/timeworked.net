@@ -1,0 +1,8 @@
+.DS_Store
+  .claude/
+  .claude
+  *.DS_Store
+  .AppleDouble
+  .LSOverride
+  *.md
+  *.txt
